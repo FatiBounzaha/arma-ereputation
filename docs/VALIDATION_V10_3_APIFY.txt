@@ -1,0 +1,19 @@
+VALIDATION TECHNIQUE — ARMA PFA V10.3 APIFY
+
+- Compilation Python backend/scripts : OK
+- Tests Pytest : 68 réussis
+- Syntaxe JavaScript Marketing : OK
+- Syntaxe JavaScript Réputation : OK
+- Workflow n8n JSON : valide
+- Étapes métier n8n : 21, numérotées de 1 à 21
+- Nom du workflow : ARMA — Pipeline quotidien n8n V10.3 Apify
+- Secrets dans le workflow : aucun détecté
+- Fichier .env réel dans la livraison : absent
+- Collecte Apify réelle : à exécuter localement avec le token de l’utilisateur
+- Envoi Facebook : Meta Graph API uniquement, après validation humaine
+
+Commandes de validation :
+
+python -m compileall backend scripts
+pytest -q
+node --check <scripts JavaScript extraits des deux interfaces>

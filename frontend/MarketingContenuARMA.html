@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARMA Agent — Marketing Contenu · Pipeline du jour</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F1B36; --navy-2: #1B2A4A;
+    --blue: #3B82F6; --accent: #6366F1; --green: #10B981; --orange: #F59E0B; --red: #D94F4F;
+    --bg: #F7F8FB; --surface: #FFFFFF; --border: #E5E9F0;
+    --text: #0F172A; --text-2: #475569; --muted: #94A3B8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    padding: 30px 20px;
+  }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* Header */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 60%, #1E3A5F 100%);
+    border-radius: 16px;
+    padding: 32px 36px;
+    color: white;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(99,102,241,0.35), transparent 60%);
+  }
+  .hero-row { position: relative; z-index: 1; }
+  .hero .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-size: 26px;
+    margin-bottom: 6px;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.78);
+    font-size: 14px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-stat .num {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .hero-stat .lab {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+  }
+
+  /* Pipeline status */
+  .pipeline-status {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 18px 22px;
+    box-shadow: 0 2px 10px rgba(15,27,74,0.04);
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .pipeline-status .label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .agent-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: rgba(99,102,241,0.08);
+    color: var(--accent);
+    border: 1px solid rgba(99,102,241,0.18);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .agent-chip::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+  }
+  .arrow { color: var(--muted); font-size: 12px; opacity: 0.5; }
+
+  /* Section */
+  .section {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 28px 32px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 10px rgba(15,27,74,0.04);
+  }
+  .section h2 {
+    font-size: 14px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2 .num {
+    width: 26px; height: 26px;
+    background: var(--accent);
+    color: white;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+
+  /* Veille items */
+  .veille-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .veille-item {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--blue);
+  }
+  .veille-item .source {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .veille-item h4 {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .veille-item .when {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .veille-item.strategic {
+    border-left-color: var(--red);
+    background: #FFF7F7;
+  }
+  .business-insight {
+    margin-top: 10px;
+    padding: 9px 10px;
+    border-radius: 7px;
+    background: rgba(217,79,79,0.07);
+    color: #7F1D1D;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .business-insight b { color: #991B1B; }
+
+  /* Angles */
+  .angles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .angle {
+    background: linear-gradient(135deg, rgba(99,102,241,0.06), rgba(59,130,246,0.06));
+    border: 1px solid rgba(99,102,241,0.15);
+    padding: 16px 18px;
+    border-radius: 10px;
+  }
+  .angle h4 {
+    font-size: 13px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .angle p {
+    font-size: 12px;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  /* Posts */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 18px;
+  }
+  .post {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+  .post:hover { box-shadow: 0 6px 20px rgba(15,27,74,0.08); }
+  .post-head {
+    padding: 12px 18px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .platform-tag {
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .platform-tag.linkedin { background: #DBEAFE; color: #1E40AF; }
+  .platform-tag.instagram { background: #FCE7F3; color: #BE185D; }
+  .platform-tag.facebook { background: #DBEAFE; color: #1D4ED8; }
+  .platform-tag.twitter { background: #E0E7FF; color: #3730A3; }
+  .post-id {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .post-body {
+    padding: 16px 18px;
+  }
+  .post-text {
+    background: var(--bg);
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+    border-left: 3px solid var(--blue);
+  }
+  .post-text.ar {
+    direction: rtl;
+    text-align: right;
+    border-left: none;
+    border-right: 3px solid var(--green);
+    font-family: 'Inter', 'Tahoma', sans-serif;
+  }
+  .lang-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .image-prompt {
+    background: #FFFBEB;
+    border: 1px dashed #F59E0B;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #78350F;
+    margin-top: 10px;
+  }
+  .image-prompt .lab {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    color: #92400E;
+    margin-bottom: 4px;
+  }
+  .post-actions {
+    padding: 12px 18px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+  }
+  .btn {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-2);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--bg); border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--blue); color: white; border-color: var(--blue); }
+  .btn.primary:hover { background: #2563EB; }
+
+  /* POC notice */
+  .poc-notice {
+    background: #FFF8E6;
+    border-left: 4px solid var(--orange);
+    padding: 12px 18px;
+    border-radius: 0 10px 10px 0;
+    font-size: 12px;
+    color: #78350F;
+    margin-bottom: 22px;
+  }
+  .poc-notice b { color: #451A03; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-row">
+      <div class="eyebrow">Marketing & Communication · Hebdomadaire</div>
+      <h1>Marketing Contenu ARMA</h1>
+      <p>Une veille qualifiée de la semaine publiée alimente les angles stratégiques et les brouillons bilingues.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="num" id="hero-posts-count">—</div><div class="lab">Posts générés</div></div>
+        <div class="hero-stat"><div class="num">2</div><div class="lab">Langues (FR + AR)</div></div>
+        <div class="hero-stat"><div class="num" id="hero-platform-count">—</div><div class="lab">Plateformes utilisées</div></div>
+        <div class="hero-stat"><div class="num">3</div><div class="lab">Agents pipeline</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="poc-notice" id="poc-notice">
+    <b>Données réelles orchestrées par n8n.</b> Cette page interroge l'API ARMA (<code id="api-base-label">http://localhost:8000</code>). Lancez ou planifiez le workflow <code>ARMA — Pipeline quotidien n8n</code>, puis rechargez la page.
+  </div>
+
+  <!-- Sélecteur de semaine : le workflow du lundi ajoute une semaine,
+       il ne remplace pas les précédentes. -->
+  <div class="pipeline-status" style="border:2px solid #DDD6FE;">
+    <span class="label" style="color:#8B5CF6;">Période analysée</span>
+    <button class="btn" id="period-prev">◀ Semaine précédente</button>
+    <select id="period-select" class="btn" style="min-width:300px;font-weight:600;" aria-label="Choisir la semaine de publication">
+      <option value="">Chargement des semaines…</option>
+    </select>
+    <button class="btn" id="period-next">Semaine suivante ▶</button>
+    <span id="period-hint" style="font-size:11px;color:var(--text-2);">Chargement…</span>
+  </div>
+
+  <div class="pipeline-status">
+    <span class="label">Pipeline</span>
+    <span class="agent-chip">Veille (Serper News)</span>
+    <span class="arrow">▶</span>
+    <span class="agent-chip">Stratège métier</span>
+    <span class="arrow">▶</span>
+    <span class="agent-chip">Rédacteur FR+AR (Claude)</span>
+  </div>
+
+  <!-- VEILLE -->
+  <div class="section">
+    <h2><span class="num">1</span><span id="veille-title">Veille de la période · Agent Serper News</span></h2>
+    <p style="font-size: 13px; color: var(--text-2); margin-bottom: 18px;">
+      Cette vue affiche uniquement les contenus dont la date de publication appartient à la semaine métier affichée. La date de collecte sert seulement à la traçabilité.
+    </p>
+    <label style="display:inline-flex;gap:8px;align-items:center;margin-bottom:14px;font-size:12px;font-weight:700;">
+      Zone géographique
+      <select id="geography-filter" class="btn">
+        <option value="morocco">Maroc</option>
+        <option value="international">International</option>
+        <option value="unknown">Zone à vérifier</option>
+      </select>
+    </label>
+    <div class="veille-grid" id="veille-grid">
+      <div class="veille-item"><h4>Chargement…</h4></div>
+    </div>
+  </div>
+
+  <!-- ANGLES -->
+  <div class="section">
+    <h2><span class="num">2</span>Angles stratégiques retenus</h2>
+    <div class="angles" id="angles-grid">
+      <div class="angle"><p>Chargement…</p></div>
+    </div>
+  </div>
+
+  <!-- POSTS -->
+  <div class="section">
+    <h2><span class="num">3</span><span id="posts-title">Brouillons bilingues à valider</span></h2>
+    <div class="posts-grid" id="posts-grid">
+      <div class="post"><div class="post-body"><div class="post-text">Chargement…</div></div></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const API_BASE_URL = window.ARMA_API_BASE_URL || 'http://localhost:8000';
+  let CURRENT_MARKETING_PERIOD = null;
+
+  const PLATFORM_LABELS = {
+    linkedin: 'LinkedIn',
+    instagram: 'Instagram',
+    facebook: 'Facebook',
+    x: 'Twitter / X',
+  };
+
+  // La classe CSS .platform-tag.twitter existe déjà (couleurs) ;
+  // la plateforme "x" s'en sert.
+  const PLATFORM_CSS_CLASS = {
+    linkedin: 'linkedin',
+    instagram: 'instagram',
+    facebook: 'facebook',
+    x: 'twitter',
+  };
+
+  async function fetchJson(path) {
+    const response = await fetch(API_BASE_URL + path);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} sur ${path}`);
+    }
+    return response.json();
+  }
+
+  async function postJson(path, payload) {
+    const response = await fetch(API_BASE_URL + path, {method:'POST', headers:{'Content-Type':'application/json','X-ARMA-User':'portail'}, body:JSON.stringify(payload)});
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.detail || `HTTP ${response.status}`);
+    return result;
+  }
+
+  function escapeHtml(value) {
+    const div = document.createElement('div');
+    div.textContent = value === null || value === undefined ? '' : String(value);
+    return div.innerHTML;
+  }
+
+  function errorMessage(error) {
+    return `Données indisponibles : ${escapeHtml(error.message)}. Vérifiez que l'API tourne (<code>python -m uvicorn backend.main:app</code>) et que le workflow n8n a été exécuté.`;
+  }
+
+  // ---------------------------------------------------------------------
+  // Sélection de la semaine de publication
+  //
+  // Sans ce sélecteur, la page ne montrait que la dernière semaine calculée :
+  // dès l'exécution du lundi, la veille de la semaine précédente disparaissait
+  // de l'écran alors qu'elle reste conservée en base.
+  // ---------------------------------------------------------------------
+  let PERIOD_OPTIONS = [];
+  let SELECTED_PERIOD_INDEX = 0;
+
+  function marketingPeriodQuery() {
+    return `period_start=${encodeURIComponent(CURRENT_MARKETING_PERIOD.start)}` +
+           `&period_end=${encodeURIComponent(CURRENT_MARKETING_PERIOD.end)}`;
+  }
+
+  function applyPeriodSelection(index) {
+    if (!PERIOD_OPTIONS.length) return;
+    SELECTED_PERIOD_INDEX = Math.max(0, Math.min(index, PERIOD_OPTIONS.length - 1));
+    const option = PERIOD_OPTIONS[SELECTED_PERIOD_INDEX];
+    CURRENT_MARKETING_PERIOD = { start: option.period_start, end: option.period_end };
+    document.getElementById('period-select').value = String(SELECTED_PERIOD_INDEX);
+    // Index 0 = semaine la plus récente, index max = la plus ancienne.
+    document.getElementById('period-prev').disabled = SELECTED_PERIOD_INDEX >= PERIOD_OPTIONS.length - 1;
+    document.getElementById('period-next').disabled = SELECTED_PERIOD_INDEX <= 0;
+    const hint = document.getElementById('period-hint');
+    hint.textContent = [
+      option.is_latest ? 'Semaine la plus récente' : 'Semaine antérieure — collecte conservée',
+      `${option.mention_count} mention(s)`,
+    ].join(' · ');
+  }
+
+  async function loadPeriods() {
+    const select = document.getElementById('period-select');
+    try {
+      PERIOD_OPTIONS = await fetchJson('/api/reputation/periods?organization=ARMA&period_type=weekly&limit=26');
+    } catch (error) {
+      PERIOD_OPTIONS = [];
+    }
+
+    if (!PERIOD_OPTIONS.length) {
+      select.innerHTML = '<option value="">Aucune période disponible</option>';
+      document.getElementById('period-hint').textContent =
+        'Exécutez le workflow n8n au moins une fois.';
+      // Repli : la dernière période calculée, comme avant.
+      try {
+        const scorePeriod = await fetchJson('/api/reputation/score?organization=ARMA&period_type=weekly');
+        CURRENT_MARKETING_PERIOD = { start: scorePeriod.period_start, end: scorePeriod.period_end };
+      } catch (error) {
+        CURRENT_MARKETING_PERIOD = null;
+      }
+      return;
+    }
+
+    select.innerHTML = PERIOD_OPTIONS.map((option, index) =>
+      `<option value="${index}">${escapeHtml(option.label)}</option>`
+    ).join('');
+    applyPeriodSelection(0);
+  }
+
+  async function refreshPeriodSections() {
+    await Promise.all([renderVeille(), renderAngles(), renderPosts()]);
+  }
+
+  async function renderVeille() {
+    const grid = document.getElementById('veille-grid');
+
+    try {
+      const zone = document.getElementById('geography-filter')?.value || 'morocco';
+      if (!CURRENT_MARKETING_PERIOD) {
+        grid.innerHTML = '<div class="veille-item"><h4>Aucune période disponible. Exécutez le workflow n8n puis rechargez la page.</h4></div>';
+        return;
+      }
+      document.getElementById('veille-title').textContent = `Veille publiée · ${CURRENT_MARKETING_PERIOD.start} → ${CURRENT_MARKETING_PERIOD.end} · Agent Serper News`;
+      const periodQuery = marketingPeriodQuery();
+      const mentions = await fetchJson(`/api/content/recent-mentions?limit=20&min_relevance=0.62&include_social=true&geography=${encodeURIComponent(zone)}&${periodQuery}`);
+
+      if (mentions.length === 0) {
+        grid.innerHTML = `<div class="veille-item"><h4>Aucune mention publiée entre ${escapeHtml(CURRENT_MARKETING_PERIOD.start)} et ${escapeHtml(CURRENT_MARKETING_PERIOD.end)}.</h4></div>`;
+        return;
+      }
+
+      const CATEGORY_LABELS = {
+        competitor: 'Concurrent',
+        opportunity: 'Opportunité',
+        regulation: 'Réglementation',
+        innovation: 'Innovation',
+        sector: 'Secteur',
+        innovation_sectorielle: 'Innovation sectorielle',
+        economie_circulaire: 'Économie circulaire',
+        reglementation: 'Réglementation',
+        marche_public: 'Marché public',
+        attribution_contrat: 'Attribution de contrat',
+        procedure_judiciaire: 'Procédure judiciaire',
+        plainte_client: 'Plainte client',
+        information_generale: 'Information générale',
+      };
+      const FRESHNESS_LABELS = { fresh: 'Très récent', recent: 'Récent', context: 'Contexte', historical: 'Historique', unknown: 'Date inconnue' };
+
+      grid.innerHTML = mentions.map((mention, index) => `
+        <article class="veille-item ${index === 0 ? 'strategic' : ''}">
+          <div class="source">
+            ${escapeHtml(mention.category_label || CATEGORY_LABELS[mention.category] || 'Veille')} · ${escapeHtml(FRESHNESS_LABELS[mention.freshness] || 'Date inconnue')}
+            · ${escapeHtml(mention.source_name)}
+            ${mention.relevance_score !== null ? ` · pertinence ${Math.round(mention.relevance_score * 100)}%` : ''}
+          </div>
+          <div class="source">Zone : ${escapeHtml(mention.geography?.label || 'À vérifier')} · Confiance géographique : ${escapeHtml(mention.geography?.confidence || 'unknown')} · Validation : ${escapeHtml(mention.validation_status || 'pending')}</div>
+          <h4>${escapeHtml(mention.title || 'Sans titre')}</h4>
+          <p style="font-size:12px;color:var(--text-2);margin:6px 0 8px;line-height:1.45;">
+            ${escapeHtml(mention.summary || '')}
+          </p>
+          ${mention.business_insight ? `
+            <div class="business-insight">
+              <b>Lecture pour ARMA :</b> ${escapeHtml(mention.business_insight.replace(/^Lecture ARMA\s*:\s*/i, ''))}
+            </div>
+          ` : ''}
+          <div class="when" style="margin-top:8px;">
+            Date de publication : ${mention.published_at ? new Date(mention.published_at).toLocaleDateString('fr-FR') : 'Non fournie — à vérifier dans la source'}<br>
+            Date de collecte : ${new Date(mention.collected_at).toLocaleDateString('fr-FR')} à ${new Date(mention.collected_at).toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'})}<br>
+            Destination : ${escapeHtml(mention.route?.destination || 'À vérifier')} · Sensibilité : ${escapeHtml(mention.route?.sensitivity || 'inconnue')} · ${escapeHtml(mention.route?.validation_required || 'Validation requise')}
+            ${mention.url ? ` · <a href="${escapeHtml(mention.url)}" target="_blank" rel="noopener noreferrer">Lire la source principale</a>` : ''}
+            ${mention.duplicate_count > 1 ? ` · ${mention.duplicate_count} sources regroupées` : ''}
+          </div>
+          ${Array.isArray(mention.related_sources) && mention.related_sources.length > 1 ? `<details><summary>Sources regroupées (${mention.related_sources.length})</summary>${mention.related_sources.map(source => `<div>${escapeHtml(source.name || 'Source')} ${source.url ? `· <a href="${escapeHtml(source.url)}" target="_blank" rel="noopener">ouvrir</a>` : ''}</div>`).join('')}</details>` : ''}
+          ${mention.facebook_capture ? `<div class="business-insight" style="margin-top:8px;"><b>Preuve visuelle Facebook :</b> ${escapeHtml(mention.facebook_capture.status || 'capturée')} · ${mention.facebook_capture.captures_count || 0} capture(s) ${mention.facebook_capture.screenshots?.[0] ? `· <a href="${escapeHtml(API_BASE_URL + mention.facebook_capture.screenshots[0])}" target="_blank" rel="noopener">Voir la première capture</a>` : ''}</div>` : ''}
+          <button class="btn" data-action="validate-mention" data-mention-id="${mention.id}">Vérifier / corriger</button>
+        </article>
+      `).join('');
+
+    } catch (error) {
+      grid.innerHTML = `<div class="veille-item"><h4>${errorMessage(error)}</h4></div>`;
+    }
+  }
+
+  async function renderAngles() {
+    const grid = document.getElementById('angles-grid');
+
+    try {
+      if (!CURRENT_MARKETING_PERIOD) {
+        grid.innerHTML = '<div class="angle"><p>Aucune période disponible. Exécutez le workflow n8n puis rechargez la page.</p></div>';
+        return;
+      }
+
+      const angles = await fetchJson(
+        `/api/content/angles?status=proposed&limit=4&${marketingPeriodQuery()}`
+      );
+
+      if (angles.length === 0) {
+        grid.innerHTML = `<div class="angle"><p>Aucun angle stratégique pour la semaine du ${escapeHtml(CURRENT_MARKETING_PERIOD.start)} au ${escapeHtml(CURRENT_MARKETING_PERIOD.end)}. Un angle n'apparaît que s'il existe au moins une publication qualifiée réellement publiée pendant cette semaine.</p></div>`;
+        return;
+      }
+
+      grid.innerHTML = angles.map(angle => `
+        <div class="angle">
+          <h4>${escapeHtml(angle.title)}</h4>
+          <p>${escapeHtml(angle.description)}</p>
+        </div>
+      `).join('');
+
+    } catch (error) {
+      grid.innerHTML = `<div class="angle"><p>${errorMessage(error)}</p></div>`;
+    }
+  }
+
+  async function renderPosts() {
+    const grid = document.getElementById('posts-grid');
+    const title = document.getElementById('posts-title');
+    const heroCount = document.getElementById('hero-posts-count');
+
+    try {
+      if (!CURRENT_MARKETING_PERIOD) {
+        grid.innerHTML = '<div class="post"><div class="post-body"><div class="post-text">Aucune période disponible. Exécutez le workflow n8n puis rechargez la page.</div></div></div>';
+        return;
+      }
+
+      const posts = await fetchJson(
+        `/api/content/posts?limit=8&${marketingPeriodQuery()}`
+      );
+
+      heroCount.textContent = posts.length;
+      const platformCount = new Set(posts.map(post => post.platform).filter(Boolean)).size;
+      const heroPlatformCount = document.getElementById('hero-platform-count');
+      if (heroPlatformCount) heroPlatformCount.textContent = platformCount;
+      title.textContent = `${posts.length} brouillon(s) bilingue(s) à valider`;
+
+      if (posts.length === 0) {
+        grid.innerHTML = `<div class="post"><div class="post-body"><div class="post-text">Aucun brouillon pour la semaine du ${escapeHtml(CURRENT_MARKETING_PERIOD.start)} au ${escapeHtml(CURRENT_MARKETING_PERIOD.end)}. Les brouillons ne sont affichés que s'ils proviennent d'angles fondés sur des publications réellement publiées pendant cette semaine.</div></div></div>`;
+        return;
+      }
+
+      grid.innerHTML = posts.map((post, index) => {
+        const platformClass = PLATFORM_CSS_CLASS[post.platform] || post.platform;
+        const platformLabel = PLATFORM_LABELS[post.platform] || post.platform;
+        const frBlock = post.content_by_language?.fr || {};
+        const arBlock = post.content_by_language?.ar || {};
+        const fr = frBlock.body || '';
+        const ar = arBlock.body || '';
+        const frHashtags = Array.isArray(frBlock.hashtags) ? frBlock.hashtags.join(' ') : '';
+        const arHashtags = Array.isArray(arBlock.hashtags) ? arBlock.hashtags.join(' ') : '';
+        const frCopy = [fr, frHashtags].filter(Boolean).join('\n\n');
+        const arCopy = [ar, arHashtags].filter(Boolean).join('\n\n');
+        const evidence = Array.isArray(post.evidence) ? post.evidence : [];
+
+        return `
+          <div class="post">
+            <div class="post-head">
+              <span class="platform-tag ${platformClass}">${escapeHtml(platformLabel)}</span>
+              <span class="post-id">Post ${index + 1}/${posts.length}</span>
+            </div>
+            <div class="post-body">
+              <div class="lang-label">🇫🇷 Français</div>
+              <div class="post-text" data-copy-text="fr">${escapeHtml(fr)}${frHashtags ? `<div style="margin-top:8px;color:#2563EB;">${escapeHtml(frHashtags)}</div>` : ''}</div>
+              <div class="lang-label">🇲🇦 العربية</div>
+              <div class="post-text ar" data-copy-text="ar">${escapeHtml(ar)}${arHashtags ? `<div style="margin-top:8px;color:#059669;">${escapeHtml(arHashtags)}</div>` : ''}</div>
+              <textarea hidden data-copy-value="fr">${escapeHtml(frCopy)}</textarea>
+              <textarea hidden data-copy-value="ar">${escapeHtml(arCopy)}</textarea>
+              ${post.image_prompt ? `
+                <div class="image-prompt">
+                  <div class="lab">🎨 Prompt image IA</div>
+                  ${escapeHtml(post.image_prompt)}
+                </div>
+              ` : ''}
+            </div>
+            <div style="font-size:11px;color:#64748B;margin-top:10px;">${post.quality_checked ? '✓ Contrôle automatique de longueur et de claims appliqué. ' : '⚠ Ancien brouillon non marqué par le contrôle V10.3. ' }${post.fallback_used ? 'Gabarit de secours utilisé. ' : ''}⚠ Validation humaine obligatoire avant publication.</div>
+            <div class="business-insight" style="margin-top:10px;"><b>Modèle LLM :</b> ${escapeHtml([post.model_provider, post.model_name, post.model_version].filter(Boolean).join(' · ') || 'Non renseigné')} · <b>Claims :</b> ${escapeHtml(post.claim_status || 'à vérifier')}</div>
+            <details style="margin-top:10px;" ${evidence.length ? '' : 'open'}><summary><b>Sources utilisées pour ce brouillon (${evidence.length})</b></summary>${evidence.length ? evidence.map(item => `<div style="font-size:12px;margin:6px 0;">#${item.mention_id} · ${escapeHtml(item.source || '')} · ${escapeHtml(item.title || '')} ${item.url ? `· <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">ouvrir</a>` : ''}</div>`).join('') : '<div style="font-size:12px;color:#B45309;">Aucune preuve liée : validation interne obligatoire.</div>'}</details>
+            <div class="post-actions">
+              <button class="btn primary" data-action="copy" data-lang="fr">Copier FR</button>
+              <button class="btn" data-action="copy" data-lang="ar">Copier AR</button>
+              <button class="btn" data-action="copy-prompt">Copier prompt</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+    } catch (error) {
+      grid.innerHTML = `<div class="post"><div class="post-body"><div class="post-text">${errorMessage(error)}</div></div></div>`;
+    }
+  }
+
+  document.getElementById('api-base-label').textContent = API_BASE_URL;
+
+  async function bootstrapMarketing() {
+    await loadPeriods();
+    await refreshPeriodSections();
+  }
+
+  bootstrapMarketing();
+
+  document.getElementById('geography-filter').addEventListener('change', renderVeille);
+
+  document.getElementById('period-select').addEventListener('change', async event => {
+    const index = Number(event.target.value);
+    if (Number.isNaN(index)) return;
+    applyPeriodSelection(index);
+    await refreshPeriodSections();
+  });
+
+  document.getElementById('period-prev').addEventListener('click', async () => {
+    applyPeriodSelection(SELECTED_PERIOD_INDEX + 1);
+    await refreshPeriodSections();
+  });
+
+  document.getElementById('period-next').addEventListener('click', async () => {
+    applyPeriodSelection(SELECTED_PERIOD_INDEX - 1);
+    await refreshPeriodSections();
+  });
+
+  document.getElementById('veille-grid').addEventListener('click', async e => {
+    const btn = e.target.closest('[data-action="validate-mention"]');
+    if (!btn) return;
+    const decision = prompt('Décision : garder, corriger, exclure, historique ou transferer_reputation', 'garder');
+    if (!decision) return;
+    const manualCategory = prompt('Catégorie corrigée (laisser vide pour conserver)', '');
+    const notes = prompt('Notes de validation', '') || '';
+    try {
+      await postJson(`/api/content/mentions/${btn.dataset.mentionId}/validate`, {decision, manual_category: manualCategory || null, notes});
+      await renderVeille();
+    } catch (error) { alert(`Validation impossible : ${error.message}`); }
+  });
+
+  // Délégation d'événements : les posts sont ajoutés dynamiquement,
+  // on écoute donc au niveau du conteneur plutôt que sur chaque bouton.
+  document.getElementById('posts-grid').addEventListener('click', async e => {
+    const btn = e.target.closest('.btn');
+    if (!btn) return;
+
+    const post = btn.closest('.post');
+    let text = '';
+    if (btn.dataset.action === 'copy') {
+      text = post.querySelector(`[data-copy-value="${btn.dataset.lang}"]`)?.value || '';
+    } else if (btn.dataset.action === 'copy-prompt') {
+      text = (post.querySelector('.image-prompt')?.textContent || '')
+        .replace('🎨 Prompt image IA', '')
+        .trim();
+    }
+
+    if (!text) return;
+    try {
+      await navigator.clipboard.writeText(text);
+      const original = btn.textContent;
+      btn.textContent = '✓ Copié';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    } catch (error) {
+      alert(`Copie impossible : ${error.message}`);
+    }
+  });
+</script>
+
+</body>
+</html>

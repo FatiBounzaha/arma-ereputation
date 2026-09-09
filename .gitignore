@@ -1,0 +1,23 @@
+.venv/
+.python-runtime/
+.uv-cache/
+__pycache__/
+*.pyc
+.env
+.vscode/
+.ipynb_checkpoints/
+data/raw/
+data/processed/
+data/facebook_screenshots/
+data/fb_registry.json
+data/facebook_retained_links.txt
+*.log
+.pytest_cache/
+n8n/n8n_data/
+coverage.xml
+htmlcov/
+_sauvegarde_avant_*/
+
+# Journal de dev interne (non prod)
+MODIFICATIONS_*.md
+LIVRAISON_*.md

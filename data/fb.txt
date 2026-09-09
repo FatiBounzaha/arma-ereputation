@@ -1,0 +1,85 @@
+# Liens des publications Facebook à analyser pour les deux POC ARMA.
+# Fichier généré automatiquement depuis PostgreSQL.
+# Sont retenus :
+# - tous les posts Facebook affichés dans la veille Marketing ;
+# - tous les posts Facebook associés à une alerte Réputation ;
+# - les posts Facebook qualifiés comme candidats métier ;
+# - les liens déjà présents dans le registre (sauf désactivation explicite).
+# Les commentaires publics de ces posts sont ensuite collectés, classés
+# positif / neutre / négatif et intégrés au score de réputation.
+# Ne jamais ajouter de token, cookie, mot de passe ou secret dans une URL.
+# Un lien par ligne.
+
+https://www.facebook.com/7newsmaroc/posts/-%D8%A3%D8%B9%D9%84%D9%86%D8%AA-%D8%B4%D8%B1%D9%83%D8%A9-%D8%B3%D9%88%D9%8A%D8%B2-%D8%B9%D9%86-%D8%AA%D8%B9%D9%8A%D9%8A%D9%86-%D8%B3%D9%81%D9%8A%D8%A7%D9%86-%D8%AC%D9%83%D8%A7%D9%86%D9%8A-%D9%81%D9%8A-%D9%85%D9%86%D8%B5%D8%A8-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D8%B1-%D8%A7%D9%84%D8%B9%D8%A7%D9%85-%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF-%D9%84%D8%B4%D8%B1%D9%83%D8%A9-%D8%B3%D9%88%D9%8A%D8%B2-%D9%81%D9%8A-/1184155116411927
+https://www.facebook.com/7Snaye3/posts/%D8%B5%D9%88%D8%B1-%D8%AA%D8%B7%D9%88%D8%B1-%D8%A7%D8%B4%D8%BA%D8%A7%D9%84-%D8%A8%D9%86%D8%A7%D8%A1-%D9%85%D8%AD%D8%B7%D8%A9-%D9%85%D8%B9%D8%A7%D9%84%D8%AC%D8%A9-%D8%A7%D9%84%D9%86%D9%81%D8%A7%D9%8A%D8%A7%D8%AA-%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D9%8A%D8%A9-%D9%84%D9%84%D8%B4%D8%B1%D9%83%D8%A9-%D8%A7%D9%84%D9%81%D8%B1%D9%86%D8%B3%D9%8A%D8%A9-%D8%B3%D9%88%D9%8A%D8%B2-%D8%A8%D8%A7%D9%84%D9%85%D9%86%D8%B7%D9%82%D8%A9-/2609281359392426
+https://www.facebook.com/LeMatinjournal/posts/le-matin-sidi-kacem-oued-rdem-pollu%C3%A9-par-les-d%C3%A9chets-des-unit%C3%A9s-de-trituration-d/4579526578826270
+https://www.facebook.com/SO.CharenteMaritime/posts/le-groupe-suez-a-achet%C3%A9-neuf-nouveaux-camions-pour-la-collecte-des-d%C3%A9chets-m%C3%A9nag/1211649240976434
+https://www.facebook.com/H24Info/posts/suez-maroc-a-annonc%C3%A9-mercredi-la-signature-dun-contrat-de-2-ans-pour-la-gestion-/5553015488049748
+https://www.facebook.com/telquelofficiel/posts/%C3%A0-l%C3%A9cole-centrale-de-casablanca-suez-maroc-a-organis%C3%A9-une-table-ronde-le-25-nove/1283559250478326
+https://www.facebook.com/sidimaaroufgoud/posts/%D9%81%D9%8A-%D8%A5%D8%B7%D8%A7%D8%B1-%D8%AC%D9%87%D9%88%D8%AF%D9%87%D8%A7-%D8%A7%D9%84%D9%85%D8%AA%D9%88%D8%A7%D8%B5%D9%84%D8%A9-%D9%84%D9%84%D8%AD%D9%81%D8%A7%D8%B8-%D8%B9%D9%84%D9%89-%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%AD%D9%8A%D8%A7%D8%A1-%D9%88%D8%AA%D8%B9%D8%B2%D9%8A%D8%B2-%D8%AC%D9%88%D8%AF%D8%A9-%D8%A7%D9%84%D8%AD%D9%8A%D8%A7%D8%A9-%D8%A7%D9%84%D9%8A%D9%88%D9%85%D9%8A%D8%A9-%D9%82%D8%A7%D9%85/1124235353035310
+https://www.facebook.com/Le360.ma/posts/trois-semaines-apr%C3%A8s-une-passation-chaotique-du-service-de-propret%C3%A9-entre-lancie/1478372787652842
+https://www.facebook.com/averda/posts/la-campagne-plage-propre-de-averda-%C3%A0-rabat-cest-avec-un-immense-honneur-et-un-gr/1398079386935922
+https://www.facebook.com/groups/480916455349909/posts/1693232337451642
+https://www.facebook.com/Medias24/posts/la-commune-de-casablanca-a-enfin-lanc%C3%A9-lappel-doffres-relatif-%C3%A0-la-gestion-d%C3%A9l%C3%A9g/1375241251309473
+https://www.facebook.com/Medias24/posts/depuis-la-fin-des-anciens-contrats-le-30-juin-plusieurs-quartiers-ont-connu-des-/1473861598114104
+https://www.facebook.com/Medias24/posts/la-gestion-d%C3%A9l%C3%A9gu%C3%A9e-du-service-public-de-collecte-et-de-nettoiement-des-d%C3%A9chets-/946678414165761
+https://www.facebook.com/Le360.ma/posts/%EF%B8%8F-averda-et-arma-en-fin-de-contrat-la-mairie-de-casablanca-pr%C3%A9pare-une-refonte-d/1262554279234695
+https://www.facebook.com/GroupeOzone/posts/apr%C3%A8s-avoir-remport%C3%A9-pour-la-deuxi%C3%A8me-fois-successive-lappel-doffres-de-la-gesti/3536711363116910
+https://www.facebook.com/maliactu/posts/le-gouvernement-r%C3%A9silie-le-contrat-dassainissement-dozone-mali-il-a-ensuite-adop/5749707968427667
+https://www.facebook.com/ledesk.ma/posts/gestion-des-d%C3%A9chets-ozone-remporte-le-juteux-march%C3%A9-de-t%C3%A9mara/3910584792337754
+https://www.facebook.com/groups/480916455349909/posts/27785424727805713
+https://www.facebook.com/emergence.mr/posts/lentreprise-arma-holding-charg%C3%A9e-de-la-gestion-des-d%C3%A9chets-%C3%A0-nouakchott-dispose-/1201627035312919
+https://www.facebook.com/eljadidascoop/posts/el-jadida-arma-cette-%C3%A9nigme-de-la-propret%C3%A9-qui-perdure-au-sein-de-la-villeles-jo/1566014102235977
+https://www.facebook.com/Le360.ma/posts/pfbid02JHj5GZgsgiUpoe8jDp4Dmi2XFp3cAGJiDF3aZ3mo7MUifoybuktEQcXwSBxiCrYkl
+https://www.facebook.com/Le360.ma/posts/pfbid02JTt5ZhxcWCm9oANreHg9uwrcsNHeKqr43bJF45w6iT7j8bVgxu2qCUAcTpMSEK5Ll
+https://www.facebook.com/eljadidascoop/posts/pfbid08oxnq5yN2Sjg66e6UBD32P9sfJt7xE51AHcbRZge7WZeUjDDrHUTLHUKtTNCFTqEl
+https://www.facebook.com/eljadidascoop/posts/pfbid097mK6bGq2YvVbqHA2RdbxSCmW7KkL9GtWd7V6R5Ra12Tw8Nh3Wq2cjZz9FHtS7b5l
+https://www.facebook.com/reel/1350558476778936
+https://www.facebook.com/Lesamisdesaidia/posts/dapparence-soign%C3%A9e-la-propret%C3%A9-urbaine-%C3%A0-sa%C3%AFdia-laisse-grandement-%C3%A0-d%C3%A9sirer-la-p/2433547200015006
+https://www.facebook.com/groups/JerbaActions/posts/3458629627643104
+https://www.facebook.com/GroupeOzone/posts/le-groupe-ozone-environnement-services-tape-fort-encore-une-fois-en-afriquetr%C3%A8s-/1671724976282234
+https://www.facebook.com/emergence.mr/posts/pfbid0sK3o9MTEnhKb8cD1vvrF79pyuHgQZkeYp4CTiCtMCUg9JA5y7FaLo4xdnvtHYJ8Rl
+https://www.facebook.com/emergence.mr/posts/pfbid02vwq1i6sKBa8MTLMQme2gLjq1nUMXhR7DzgkqLuhkm8PfrdeTaN22f9C6VdndgFa3l
+https://www.facebook.com/Le360.ma/posts/pfbid0EewrhpGoHoYUZ94x527Qmt4UQtz1H4STuFxfFCX7rSMX9tkKVeCMzgaxbFgbGm2al
+https://www.facebook.com/eljadidascoop/posts/pfbid02Ct4zdgQwLM9h2qSamoEp6LyDSJe62pmQAsfJxRmzgikDj5MzmbyxVXeKg4caEuxVl
+https://www.facebook.com/emergence.mr/posts/pfbid02w7z21F9419KU43Y3M2bq1WAiW35ax1jAJH28dL2ayfoQxy8pdKAuQ6TiyZh3XYpgl
+https://www.facebook.com/emergence.mr/posts/un-an-apr%C3%A8s-le-lancement-de-ses-op%C3%A9rations-dans-la-capitale-arma-holding-peine-t/1512904747518478
+https://www.facebook.com/Medias24/posts/le-tribunal-de-commerce-de-rabat-a-admis-une-cr%C3%A9ance-fiscale-dans-le-redressemen/1401072812059650
+https://www.facebook.com/ahdattemara/videos/%D9%85%D8%B1%D8%B3-%D8%A7%D9%84%D8%AE%D9%8A%D8%B1-%D8%B9%D9%85%D8%A7%D9%84-%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D9%88%D8%B2%D9%88%D9%86-%D9%81%D9%8A-%D9%88%D9%82%D9%81%D8%A9-%D8%A3%D9%85%D8%A7%D9%85-%D9%85%D9%82%D8%B1-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D8%A9-%D8%A8%D8%B3%D8%A8%D8%A8-%D8%B9%D8%AF%D9%85-%D8%AA%D9%88%D8%B5%D9%84%D9%87%D9%85-%D8%A8%D8%A3%D8%AC%D9%88%D8%B1%D9%87%D9%85/1350558476778936
+https://www.facebook.com/equinoxe.tv1/posts/gestion-des-de%CC%81chets-et-travaux-stoppe%CC%81s-le-grand-ras-le-bol-des-usagers-du-marc/1572595894454203
+https://www.facebook.com/Medias24/posts/pfbid02ZgHHnczUJvQQNdPf9T9RmhXjnQjjzySpLxVyzYqkCbD1i25SMwT5PrgKQDeqT698l
+https://www.facebook.com/permalink.php?story_fbid=pfbid031BkVCvkF6Hu4uJRXFwcYE5otW5KPFZnjMo9YxQ8kFXXYaaqYXgHML3fpNabxA7SKl&id=100076856828479
+https://www.facebook.com/emergence.mr/posts/pfbid02evRyTpHhyqM4bvcvFHVK4nEr18Kvm9JznL47saMibybyYseHvN6A1FtycBCBQsgvl
+https://www.facebook.com/permalink.php?story_fbid=pfbid0wjNNwNDJ4sQgnpkte8eiyi692j1PBypB3z3HMfd4uEUDMVq8ZjC8sLe67JeMK2dzl&id=100076856828479
+https://www.facebook.com/Volvo.Trucks.Suisse/posts/remise-de-v%C3%A9hicule-efficacit%C3%A9-%C3%A9lectromobilit%C3%A9-et-propret%C3%A9-r%C3%A9unies-nous-sommes-he/1721825119947779
+https://www.facebook.com/souledjigo/posts/avec-arma-nouakchott-brille-tr%C3%A8s-bien-mais-encore-faut-il-que-ce-ne-soit-pas-quu/10237996915166223
+https://www.facebook.com/souledjigo/posts/pfbid02A2qJ9LadC3PYdZphmvjgyNtDHrhwbLcupjo2ZtKzb2C4ZHDnUPR7GSyJnf1T7vpol
+https://www.facebook.com/souledjigo/posts/pfbid06fM7XKE1AVCUmukdo1z8YAGLxKha7S5GVoKkBW9CZ4BQU69meuMn6XXLcmJrwE8Jl
+https://www.facebook.com/emergence.mr/posts/pfbid02evZ2TqbQFjyKbtSpw2vneSJU1AhEuSvwQEDXvkvDNgoTouRDuJp4fVSrP3d6ViCdl
+https://www.facebook.com/republicainlorrain/posts/au-bout-de-lavenue-de-la-r%C3%A9publique-suez-rv-nord-est-stocke-des-d%C3%A9chets-plastiqu/1389976346511843
+https://www.facebook.com/Le360.ma/posts/des-d%C3%A9chets-plastiques-des-odeurs-naus%C3%A9abondes-loued-f%C3%A8s-gravement-pollu%C3%A9-attend/2458238350996613
+https://www.facebook.com/100076856828479/posts/en-bref-cridem-le-leader-marocain-de-collecte-des-ordures-m%C3%A9nag%C3%A8res-arma-holding/734353619136526
+https://www.facebook.com/villedesaintquentin.OFFICIEL/posts/environnement-la-propret%C3%A9-est-laffaire-de-tous-/3139319776148058
+https://www.facebook.com/aika.alliance/posts/-%F0%9D%90%8B%F0%9D%90%84%F0%9D%90%92-%F0%9D%90%89%F0%9D%90%84%F0%9D%90%94%F0%9D%90%8D%F0%9D%90%84%F0%9D%90%92-%F0%9D%90%82%F0%9D%90%84%F0%9D%90%93%F0%9D%90%93%F0%9D%90%84-%F0%9D%90%8E%F0%9D%90%8F%F0%9D%90%8F%F0%9D%90%8E%F0%9D%90%91%F0%9D%90%93%F0%9D%90%94%F0%9D%90%8D%F0%9D%90%88%F0%9D%90%93%F0%9D%90%84%CC%81-%F0%9D%90%84%F0%9D%90%92%F0%9D%90%93-%F0%9D%90%8F%F0%9D%90%8E%F0%9D%90%94%F0%9D%90%91-%F0%9D%90%95%F0%9D%90%8E%F0%9D%90%94%F0%9D%90%92-comment-transformer-nos-d%C3%A9chets-en-/931289786611288
+https://www.facebook.com/StudioTamani/posts/titresassainissement-de-bamako-le-gouvernement-r%C3%A9silie-le-contrat-dozone-malia-t/4103360793222723
+https://www.facebook.com/lindependant.perpignan/posts/elle-fournit-de-leau-potable-%C3%A0-68-millions-de-personnes-et-g%C3%A9n%C3%A8re-92-milliards-d/1489234616542358
+https://www.facebook.com/maliactu/posts/mali-contrat-dassainissement-ozone-mali-le-pdg-aziz-el-badraoui-au-mali-pour-un-/2353252594739905
+https://www.facebook.com/ReseauChabaka.tn/posts/-prix-suez-de-lentrepreneuriat-social-le-prix-suez-france-institut-de-france-r%C3%A9c/508336726396052
+https://www.facebook.com/darlamane2021/posts/%D8%A3%D8%B7%D9%84%D9%82%D8%AA-%D9%85%D9%82%D8%A7%D8%B7%D8%B9%D8%A9-%D8%B9%D9%8A%D9%86-%D8%A7%D9%84%D8%B3%D8%A8%D8%B9-%D8%B5%D8%A8%D8%A7%D8%AD-%D8%A7%D9%84%D9%8A%D9%88%D9%85-%D8%B1%D9%81%D9%82%D8%A9-%D8%B4%D8%B1%D9%83%D8%A9-%D8%AA%D8%AF%D8%A8%D9%8A%D8%B1-%D8%A7%D9%84%D9%86%D9%81%D8%A7%D9%8A%D8%A7%D8%AA-%D8%A3%D9%81%D9%8A%D8%B1%D8%AF%D8%A7-%D8%AD%D9%85%D9%84%D8%A9-%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D9%88%D8%A7%D8%B3/5235156643177755
+https://www.facebook.com/groups/480916455349909/posts/3546405018801022
+https://www.facebook.com/LeMatinjournal/posts/lop%C3%A9rateur-libanais-averda-pourrait-perdre-le-contrat-qui-le-relie-%C3%A0-la-ville-de/1561506697294955
+https://www.facebook.com/Lesamisdesaidia/posts/gestion-d%C3%A9l%C3%A9gu%C3%A9e-des-d%C3%A9chets-la-commune-de-sa%C3%AFdia-doit-revoir-sa-copie-la-commun/2044586155577781
+https://www.facebook.com/presstetouan/posts/%D9%87%D9%84-%D9%87%D9%8A-%D8%A8%D8%AF%D8%A7%D9%8A%D8%A9-%D8%A3%D8%B2%D9%85%D8%A9-%D9%82%D8%B7%D8%A7%D8%B9-%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%A8%D8%AA%D8%B7%D9%88%D8%A7%D9%86%D8%B9%D9%85%D8%A7%D9%84-%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%A8%D8%B4%D8%B1%D9%83%D8%A9-%D8%B3%D9%88%D9%8A%D8%B2-%D8%A7%D9%84%D8%A8%D9%8A%D8%B6%D8%A7%D8%A1-%D9%84%D9%85-%D9%8A%D8%AA%D9%88%D8%B5%D9%84%D9%88%D8%A7-%D8%A8/3090257084322382
+https://www.facebook.com/jacques.chastaing/posts/convergence-des-luttes-pour-un-service-public-des-d%C3%A9chets-menagersles-agents-de-/26120249371003260
+https://www.facebook.com/SyndicatTriAction/posts/etrennes-alerte-aux-faux-eboueursa-lapproche-de-la-fin-dann%C3%A9e-les-agents-de-coll/379322185552909
+https://www.facebook.com/61566093070112/videos/%D9%81%D9%8A-%D8%A5%D8%B7%D8%A7%D8%B1-%D8%A7%D9%84%D8%AD%D9%81%D8%A7%D8%B8-%D8%B9%D9%84%D9%89-%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%A7%D9%84%D8%A3%D8%AD%D9%8A%D8%A7%D8%A1-%D9%88%D8%A7%D9%84%D8%A7%D8%B1%D8%AA%D9%82%D8%A7%D8%A1-%D8%A8%D8%AC%D9%88%D8%AF%D8%A9-%D8%A7%D9%84%D8%A8%D9%8A%D8%A6%D8%A9-%D8%AA%D9%88%D8%A7%D8%B5%D9%84-%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D9%81%D9%8A%D8%B1%D8%AF%D8%A7-%D9%85%D8%AC%D9%87%D9%88%D8%AF%D8%A7/2454425045070274
+https://www.facebook.com/gabonmediatime/posts/soci%C3%A9t%C3%A9-collecte-des-ordures-m%C3%A9nag%C3%A8res-averda-se-d%C3%A9fend-gmt/2286263878066968
+https://www.facebook.com/elwatanmedia.ma.news/posts/-%D8%B9%D9%85%D8%A7%D9%84-%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%A8%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D9%88%D8%B2%D9%88%D9%86-%D8%A8%D8%A7%D9%84%D8%B9%D9%8A%D9%88%D9%86-%D9%8A%D8%AD%D8%AA%D8%AC%D9%88%D9%86-%D8%B9%D9%84%D9%89-%D8%B9%D8%AF%D9%85-%D8%B5%D8%B1%D9%81-%D8%B1%D9%88%D8%A7%D8%AA%D8%A8%D9%87%D9%85-%D9%84%D9%85%D8%AF%D8%A9-3-%D8%A3%D8%B4%D9%87%D8%B1-%D9%85%D9%85%D8%A7-%D9%8A%D9%81%D8%A7/1366441092150126
+https://www.facebook.com/al3omkofficiel/videos/%D8%A3%D8%A8%D8%B7%D8%A7%D9%84%D9%87-%D8%B4%D8%B1%D9%83%D8%A9-%D8%A3%D9%88%D8%B2%D9%88%D9%86-%D9%88%D9%83%D8%B1%D9%8A%D9%85%D9%8A%D9%86-%D9%86%D8%AF%D9%88%D8%A9-%D8%AA%D9%83%D8%B4%D9%81-%D8%A7%D8%AE%D8%AA%D9%84%D8%A7%D8%B3-%D9%82%D8%B1%D8%A7%D8%A8%D8%A9-10-%D9%85%D9%84%D8%A7%D9%8A%D9%8A%D8%B1-%D8%B3%D9%86%D8%AA%D9%8A%D9%85-%D9%81%D9%8A-%D9%82%D8%B7%D8%A7%D8%B9-%D8%A7%D9%84%D9%86%D8%B8%D8%A7%D9%81%D8%A9/1354062669542335
+https://www.facebook.com/journalaswatma/posts/%D8%A3%D8%B2%D9%85%D8%A9-%D8%A3%D9%88%D8%B2%D9%88%D9%86-%D9%84%D9%84%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%AA%D8%AA%D9%81%D8%A7%D9%82%D9%85-%D8%A7%D8%AD%D8%AA%D8%AC%D8%A7%D8%AC%D8%A7%D8%AA-%D8%A7%D9%84%D8%B9%D9%85%D8%A7%D9%84-%D9%88%D9%81%D8%B4%D9%84-%D8%A7%D9%84%D8%A5%D8%AF%D8%A7%D8%B1%D8%A9-%D9%8A%D9%87%D8%AF%D8%AF%D8%A7%D9%86-%D9%86%D8%B8%D8%A7%D9%81%D8%A9-%D8%A5%D9%82%D9%84%D9%8A%D9%85-%D8%A8%D9%86%D8%B3%D9%84%D9%8A%D9%85/715308474618431
+https://www.facebook.com/Le360.ma/posts/pfbid0Eq6rzxYY7CYGDoNNgvShtyffjW6tZB3WDtWinTuTLRgosi5Luv7RqiLauLKxpYrnl
+https://www.facebook.com/permalink.php?story_fbid=pfbid0weEMHnRaXBVhSbat7bzUYS1R4Bn28sAPuLkx6SKKBPVHnajoHSuzVPATKN2hvnhAl&id=100076856828479
+https://www.facebook.com/eljadidascoop/posts/pfbid08ipmBWBeUbo4hS7FLb9X9eCNaR1fQqwYuaaHT8UeCCEsnQdNoqxMs3u2FGxE6ivpl
+https://www.facebook.com/emergence.mr/posts/pfbid02w2qzMfMLTP9WgB5mcMxYdgEig9RAt71kfDWmWhVXJR211QQM3GgcZBUTS7Pt2cUnl
+https://www.facebook.com/Le360.ma/posts/pfbid02JWGWtTtvsACdNdHKaPRZ14ENMwVKd7z31sT3u2eZz53RD9bG8RCXkM2iCBDfdBj6l
+https://www.facebook.com/Medias24/posts/pfbid02ZgQLneJAavkGvt92eTB1pdUnaeXURPjhYNbrfC5fAuCbsSfcs57Q99bzD8Tr7XkQl

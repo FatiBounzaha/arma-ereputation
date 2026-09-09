@@ -1,0 +1,17 @@
+VALIDATION VERSION FINALE — COMMENTAIRES FACEBOOK ET SENTIMENT
+Date de validation : 2026-08-05
+
+Vérifications exécutées :
+- Compilation Python du dossier backend : OK
+- Suite pytest : 77 tests réussis
+- Syntaxe JavaScript de ReputationSocialeARMA.html : OK
+- Validation JSON du workflow n8n : OK
+
+Comportements couverts :
+- mode Apify de collecte étendue et réponses imbriquées ;
+- exclusion du spam, des prix seuls et des concurrents seuls ;
+- conservation des commentaires positifs, neutres et négatifs liés à ARMA ;
+- prise en compte des commentaires utiles dans le score ;
+- création d'une alerte pour chaque commentaire négatif ARMA ;
+- absence de regroupement entre deux commentaires négatifs du même post ;
+- affichage du résumé Facebook et des alertes individuelles dans le frontend.

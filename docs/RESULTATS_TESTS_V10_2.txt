@@ -1,0 +1,8 @@
+ARMA PFA V10.2 - Validation automatique
+
+Pytest : 59 cas réussis
+Compilation Python : OK
+Workflow n8n : 21 étapes métier, aucune étape manquante
+JavaScript Marketing : OK
+JavaScript Réputation : OK
+Collecteur fb.txt vide : no_links (comportement attendu)

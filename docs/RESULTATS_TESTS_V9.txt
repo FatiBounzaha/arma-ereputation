@@ -1,0 +1,17 @@
+ARMA PFA V9 - Validation automatique
+UTC: 2026-07-31 15:38:50
+
+[1] Compilation Python
+OK
+
+[2] Tests Pytest
+...................................                                      [100%]
+35 tests réussis
+
+[3] Workflow n8n
+OK - 27 noeuds, workflow inactif par défaut, fuseau Africa/Casablanca
+
+[4] Syntaxe JavaScript frontend
+/tmp/MarketingContenuARMA.js
+/tmp/ReputationSocialeARMA.js
+OK

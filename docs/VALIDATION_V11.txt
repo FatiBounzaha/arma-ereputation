@@ -1,0 +1,14 @@
+VALIDATION V11 — COMMENTAIRES FACEBOOK / PÉRIODE DE COLLECTE
+
+- Compilation Python : OK
+- Suite pytest : 86 tests OK
+- Cas logement social sous post ARMA : classé off_topic, exclu du score et des alertes
+- Cas emploi sous post ARMA : classé off_topic
+- Commentaire propreté / suggestion : reste pertinent
+- Commentaire négatif ARMA / Tanger : reste pertinent et alertable
+- Date score des social_comment : collected_at (première collecte)
+- Resynchronisation Apify : collected_at n'est plus écrasé
+- Portail Facebook : période_start / période_end = période du score affiché
+- Date affichée sur une alerte commentaire : collected_at
+- Claude : intégration conservée ; fallback automatique règles strictes si API/crédit indisponible
+- FORMULA_VERSION : v4_collection_date_social_comments

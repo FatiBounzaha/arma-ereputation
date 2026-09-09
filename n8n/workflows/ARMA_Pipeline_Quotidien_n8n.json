@@ -1,0 +1,1259 @@
+{
+  "name": "ARMA — Pipeline quotidien n8n VERSION FINALE",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        120
+      ],
+      "id": "cde359f2-8f68-4920-ad68-132d205082d3",
+      "name": "Lancement manuel"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "weeksInterval": 1,
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 7,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1200,
+        -80
+      ],
+      "id": "35b55aa4-a0bd-4acd-9bb0-a4c932289301",
+      "name": "Chaque lundi à 07h00"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Configuration locale ARMA VERSION FINALE.\n// Windows : http://127.0.0.1:8000\n// Docker n8n : http://host.docker.internal:8000\n// Renseigner la même clé que N8N_ORCHESTRATION_TOKEN si elle est activée.\nreturn [{\n  json: {\n    baseUrl: 'http://127.0.0.1:8000',\n    orchestrationKey: ''\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        20
+      ],
+      "id": "c38ddf16-85b4-4147-98ca-b148b00cccb3",
+      "name": "Configuration ARMA",
+      "notesInFlow": true,
+      "notes": "Configuration unique du backend et de la clé d’orchestration. Ne jamais placer les clés Serper/Claude dans n8n."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/start' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "rawContentType": "application/json",
+        "body": "={{ JSON.stringify({ trigger: \"n8n\", workflow: $workflow.name, execution_id: $execution.id }) }}"
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -700,
+        20
+      ],
+      "id": "39b1539a-08e2-45a1-99e5-63af08282faa",
+      "name": "Démarrer le run n8n",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000,
+      "onError": "stopWorkflow"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_serper_news' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -420,
+        20
+      ],
+      "id": "102176e1-c16f-421a-846f-57369420f423",
+      "name": "01 - Serper actualités",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_serper_web' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -140,
+        20
+      ],
+      "id": "0b2b40df-412e-4676-a2b4-fe4e47c68c64",
+      "name": "02 - Serper web",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_rss' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        140,
+        20
+      ],
+      "id": "49c76c5d-5a44-456c-91b4-f8b5d543996d",
+      "name": "03 - Presse RSS",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_business_intelligence' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        420,
+        20
+      ],
+      "id": "48e2bad7-d94d-48e6-b924-eec2b624b4d4",
+      "name": "04 - Veille stratégique",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_social_posts' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        700,
+        20
+      ],
+      "id": "c413d526-46e8-4db8-a68f-d25cf5bdc7e4",
+      "name": "05 - Découverte sociale",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_x_api' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        980,
+        20
+      ],
+      "id": "e5a2cdec-bc5d-4956-ac39-e2ecaec31b1f",
+      "name": "06 - Complément X API",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_instagram_comments' }}",
+        "statusUrl": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/facebook/integration/status' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1260,
+        20
+      ],
+      "id": "6844034e-da0b-4362-847e-454d1f3114a9",
+      "name": "07 - Commentaires Instagram",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/qualify_mentions' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1540,
+        20
+      ],
+      "id": "8c591dda-1268-4a28-98dd-c611e0634bea",
+      "name": "08 - Qualification anti-bruit",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/export_facebook_retained_links' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1820,
+        20
+      ],
+      "id": "d25edd52-e844-402e-96d3-82886b03fe34",
+      "name": "09 - Export liens Facebook retenus",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/collect_facebook_comments' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2100,
+        20
+      ],
+      "id": "1ad11099-fbf9-4899-9d29-25263c41c373",
+      "name": "10 - Commentaires Facebook Apify/Meta",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/clean_texts' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2380,
+        20
+      ],
+      "id": "3a08724f-c091-47aa-a92a-b5064a5dcda0",
+      "name": "11 - Nettoyage textes",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/detect_languages' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2660,
+        20
+      ],
+      "id": "63574233-9fa3-431d-87d5-070fd2726a32",
+      "name": "12 - Détection langues",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/triage_comments' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2940,
+        20
+      ],
+      "id": "9e6c968f-2839-45ac-89d6-847ba09a68b1",
+      "name": "13 - Tri commentaires Claude",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/tag_topics' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3220,
+        20
+      ],
+      "id": "555b9289-9b5d-4e45-afa2-14d0f618829a",
+      "name": "14 - Classement thèmes",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/analyze_sentiment' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3500,
+        20
+      ],
+      "id": "20568971-83dd-4284-ab6a-4b52b4c50f92",
+      "name": "15 - Analyse sentiment",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/compute_reputation' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        3780,
+        20
+      ],
+      "id": "cf3a6bca-60aa-42c1-ba8c-62f54499d468",
+      "name": "16 - Score réputation",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/generate_alerts' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        4060,
+        20
+      ],
+      "id": "7e916075-df57-4ec5-a913-92cf156fce91",
+      "name": "17 - Création alertes",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput",
+      "notesInFlow": true,
+      "notes": "Reconstruit data/fb.txt avec les posts Facebook retenus dans la veille Marketing ou associés à une alerte."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/capture_facebook_screenshots' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        4340,
+        20
+      ],
+      "id": "5ffdc856-d9a5-40e6-91f8-3aab4824589c",
+      "name": "18 - Captures Facebook publiques",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput",
+      "notesInFlow": true,
+      "notes": "Lance Selenium/Chrome sans authentification et enregistre les captures dans data/facebook_screenshots. Étape non bloquante si Chrome est indisponible."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/generate_response_drafts' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        4620,
+        20
+      ],
+      "id": "2149f9ea-de30-4ec9-9838-ad60d20b6e29",
+      "name": "19 - Réponses Claude",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/generate_angles' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        4900,
+        20
+      ],
+      "id": "d37c0b9f-810e-4305-8919-9e7fec6c3a68",
+      "name": "20 - Angles stratégiques",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/steps/generate_posts' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        5180,
+        20
+      ],
+      "id": "ab8b915b-4533-466b-b4eb-e8b6c2bbcf72",
+      "name": "21 - Posts FR AR",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1500,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/orchestration/runs/' + $('Démarrer le run n8n').first().json.run_id + '/finish' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 900000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        5460,
+        20
+      ],
+      "id": "4fb31402-a0fd-4b33-b5e2-2cdc30a1822d",
+      "name": "Finaliser le run",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/api/quality/status' }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-ARMA-Orchestration-Key",
+              "value": "={{ $('Configuration ARMA').first().json.orchestrationKey }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000,
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        5740,
+        20
+      ],
+      "id": "3237f5a2-8d00-4389-8ac2-bee65f6c8ec2",
+      "name": "État qualité du portail",
+      "retryOnFail": true,
+      "maxTries": 2,
+      "waitBetweenTries": 1000,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const run = $('Finaliser le run').first().json;\nconst quality = $('État qualité du portail').first().json;\nconst completed = run.status === 'completed';\nconst failedSteps = (run.steps || []).filter(s => s.status === 'failed').map(s => s.name);\nreturn [{ json: {\n  orchestrator: 'n8n',\n  version: 'VERSION FINALE',\n  success: completed,\n  message: completed ? 'Pipeline ARMA terminé avec succès.' : 'Pipeline partiel : vérifier les connecteurs ou étapes listées.',\n  failedSteps,\n  run,\n  quality\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        6020,
+        20
+      ],
+      "id": "3ae98339-b109-4558-8426-1bb4b8016823",
+      "name": "Résumé final"
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Configuration ARMA').first().json.baseUrl + '/health' }}",
+        "options": {
+          "timeout": 30000
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -700,
+        -120
+      ],
+      "id": "739f6a0b-b8a6-4b55-b66b-0ba7d43591a4",
+      "name": "Préflight API ARMA",
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000,
+      "onError": "stopWorkflow",
+      "notesInFlow": true,
+      "notes": "Bloque le workflow si FastAPI n’est pas disponible."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Démarrer le run n8n": {
+      "main": [
+        [
+          {
+            "node": "01 - Serper actualités",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "01 - Serper actualités": {
+      "main": [
+        [
+          {
+            "node": "02 - Serper web",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "02 - Serper web": {
+      "main": [
+        [
+          {
+            "node": "03 - Presse RSS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "03 - Presse RSS": {
+      "main": [
+        [
+          {
+            "node": "04 - Veille stratégique",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "04 - Veille stratégique": {
+      "main": [
+        [
+          {
+            "node": "05 - Découverte sociale",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "05 - Découverte sociale": {
+      "main": [
+        [
+          {
+            "node": "06 - Complément X API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "06 - Complément X API": {
+      "main": [
+        [
+          {
+            "node": "07 - Commentaires Instagram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "08 - Qualification anti-bruit": {
+      "main": [
+        [
+          {
+            "node": "09 - Export liens Facebook retenus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "09 - Export liens Facebook retenus": {
+      "main": [
+        [
+          {
+            "node": "10 - Commentaires Facebook Apify/Meta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "10 - Commentaires Facebook Apify/Meta": {
+      "main": [
+        [
+          {
+            "node": "11 - Nettoyage textes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "11 - Nettoyage textes": {
+      "main": [
+        [
+          {
+            "node": "12 - Détection langues",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "12 - Détection langues": {
+      "main": [
+        [
+          {
+            "node": "13 - Tri commentaires Claude",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "13 - Tri commentaires Claude": {
+      "main": [
+        [
+          {
+            "node": "14 - Classement thèmes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "14 - Classement thèmes": {
+      "main": [
+        [
+          {
+            "node": "15 - Analyse sentiment",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "15 - Analyse sentiment": {
+      "main": [
+        [
+          {
+            "node": "16 - Score réputation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "16 - Score réputation": {
+      "main": [
+        [
+          {
+            "node": "17 - Création alertes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "19 - Réponses Claude": {
+      "main": [
+        [
+          {
+            "node": "20 - Angles stratégiques",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "20 - Angles stratégiques": {
+      "main": [
+        [
+          {
+            "node": "21 - Posts FR AR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "21 - Posts FR AR": {
+      "main": [
+        [
+          {
+            "node": "Finaliser le run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Finaliser le run": {
+      "main": [
+        [
+          {
+            "node": "État qualité du portail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "État qualité du portail": {
+      "main": [
+        [
+          {
+            "node": "Résumé final",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lancement manuel": {
+      "main": [
+        [
+          {
+            "node": "Configuration ARMA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tous les jours à 07h00": {
+      "main": [
+        [
+          {
+            "node": "Configuration ARMA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configuration ARMA": {
+      "main": [
+        [
+          {
+            "node": "Préflight API ARMA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Préflight API ARMA": {
+      "main": [
+        [
+          {
+            "node": "Démarrer le run n8n",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "17 - Création alertes": {
+      "main": [
+        [
+          {
+            "node": "18 - Captures Facebook publiques",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "18 - Captures Facebook publiques": {
+      "main": [
+        [
+          {
+            "node": "19 - Réponses Claude",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "07 - Commentaires Instagram": {
+      "main": [
+        [
+          {
+            "node": "08 - Qualification anti-bruit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "Africa/Casablanca",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "a12e5893-ce37-4d80-9545-dde1161adb38",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "version": "10.2"
+  },
+  "tags": []
+}
