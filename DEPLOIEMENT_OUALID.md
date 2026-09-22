@@ -9,7 +9,7 @@ Backend **FastAPI + PostgreSQL** (social-listening ARMA) + 2 dashboards + orches
 ## 0. Prérequis serveur
 - **Python 3.12** (`python3.12 --version`) + `python3.12-venv`.
 - **PostgreSQL 14+** (18 en local, ≥14 suffit).
-- ~4 Go d'espace (dépendances `torch`/`transformers` pour le sentiment).
+- ~1 Go d'espace (sentiment via **Claude** par défaut → `torch`/`transformers` **NON requis** ; ne les installer que si `SENTIMENT_PROVIDER=huggingface`).
 - Sortie internet vers `serper.dev`, `api.apify.com`, `api.anthropic.com`.
 - (Optionnel) **Google Chrome + chromedriver** seulement si on active les captures d'écran Facebook (`FACEBOOK_SCREENSHOT_ENABLED=true`, désactivé par défaut).
 
@@ -70,7 +70,7 @@ SERPER_API_KEY=<clé fournie>          # rechargée 2026-09-09, OK
 ANTHROPIC_API_KEY=<clé fournie>        # ⚠️ crédits à recharger (voir §8)
 APIFY_API_TOKEN=<clé fournie>          # OK (commentaires Facebook)
 
-SENTIMENT_PROVIDER=huggingface
+SENTIMENT_PROVIDER=claude
 COMMENT_TRIAGE_PROVIDER=claude
 RESPONSE_DRAFT_PROVIDER=claude
 POST_CONTENT_PROVIDER=claude

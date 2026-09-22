@@ -19,10 +19,12 @@ from backend.database.models import (
     PipelineRun,
 )
 
-# Fournisseur utilisé par défaut si SENTIMENT_PROVIDER n'est pas
-# défini dans le .env. Reste "huggingface" tant que le projet ne
-# dispose pas d'une clé ANTHROPIC_API_KEY valide.
-DEFAULT_PROVIDER_NAME = "huggingface"
+# Fournisseur utilisé par défaut si SENTIMENT_PROVIDER n'est pas défini dans le .env.
+# Défaut = "claude" : fiable et léger en déploiement (pas de torch/transformers de
+# 2-3 Go, dépendances lourdes et fragiles à installer). Le provider "huggingface"
+# (modèle local gratuit) reste disponible en mettant SENTIMENT_PROVIDER=huggingface
+# ET en installant les paquets optionnels torch/transformers/tiktoken (cf. requirements).
+DEFAULT_PROVIDER_NAME = "claude"
 
 
 def utc_now() -> datetime:
