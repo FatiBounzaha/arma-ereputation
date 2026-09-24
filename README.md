@@ -1,14 +1,9 @@
-# ARMA PFA — VERSION FINALE V2
+# ARMA — Veille marketing et e-réputation
 
-La V2 finale sépare clairement les commentaires Facebook à traiter, crée aussi des alertes pour les questions/suggestions actionnables et répare le rattachement des commentaires aux posts Serper/Marketing. Voir `MODIFICATIONS_VERSION_FINALE_V2_COMMENTAIRES_ACTIONNABLES.md`.
-
-> **VERSION FINALE — commentaires Facebook, sentiment et alertes individuelles.**
-
-# ARMA PFA — Veille marketing et e-réputation
-
-Version consolidée du PFA, avec **n8n comme orchestrateur principal**, FastAPI,
-PostgreSQL, Serper, NLP multilingue et API Claude. Les deux POC sont alimentés
-par la base et non par des exemples figés.
+Plateforme de veille marketing et e-réputation ARMA, avec **n8n comme orchestrateur
+principal**, FastAPI, PostgreSQL, Serper, NLP multilingue et API Claude. Les deux
+tableaux de bord (Réputation Sociale, Marketing Contenu) sont alimentés par la base
+et non par des exemples figés.
 
 ## POC couverts
 

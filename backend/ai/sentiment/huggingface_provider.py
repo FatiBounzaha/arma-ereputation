@@ -12,8 +12,7 @@ except ImportError:  # pragma: no cover - dépend de l'environnement d'exécutio
 
 # Modèle multilingue (8 langues, dont le français et l'arabe standard).
 # Le darija marocain n'est pas spécifiquement couvert par ce modèle :
-# c'est une limite connue, à documenter dans l'état de l'art NLP arabe
-# du rapport de PFA.
+# c'est une limite connue du modèle sur le dialecte marocain.
 DEFAULT_MODEL_NAME = "cardiffnlp/twitter-xlm-roberta-base-sentiment"
 
 # Les modèles de type BERT/RoBERTa tronquent de toute façon à 512
